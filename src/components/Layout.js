@@ -26,6 +26,15 @@ const Layout = ({ children }) => {
                             {(user?.role === 'ADMIN' || user?.role === 'SUPERVISOR') && (
                                 <Link href="/clients" passHref legacyBehavior><Nav.Link>Clientes</Nav.Link></Link>
                             )}
+
+                            {(user?.role === 'ADMIN' || user?.role === 'SUPERVISOR') && (
+                                <Link href="/clients" passHref legacyBehavior><Nav.Link>Clientes</Nav.Link></Link>
+                            )}
+                            
+                            {/* AÑADE ESTE NUEVO BLOQUE */}
+                            {(user?.role === 'ADMIN' || user?.role === 'SUPERVISOR') && (
+                                <Link href="/reports" passHref legacyBehavior><Nav.Link>Reportes</Nav.Link></Link>
+                            )}
                             
                             {/* Visible solo para Supervisor */}
                             {user?.role === 'SUPERVISOR' && (
