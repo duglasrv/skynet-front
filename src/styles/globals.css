@@ -1,0 +1,20 @@
+/* Ruta: /src/styles/globals.css */
+
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 380px;
+  padding: 2rem;
+  margin: auto;
+  text-align: center;
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
+}
