@@ -11,12 +11,12 @@ const ClientsPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
     
-    // Estado para el modal
     const [showModal, setShowModal] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
     const [currentClient, setCurrentClient] = useState(null);
+    // 1. Añadimos 'email' al estado inicial del formulario
     const [formData, setFormData] = useState({
-        name: '', address: '', contact_name: '', phone: '', lat: '', lng: ''
+        name: '', email: '', address: '', contact_name: '', phone: '', lat: '', lng: ''
     });
 
     const fetchClients = async () => {
@@ -32,13 +32,10 @@ const ClientsPage = () => {
         }
     };
 
-    useEffect(() => {
-        fetchClients();
-    }, []);
+    useEffect(() => { fetchClients(); }, []);
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+        setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
     };
 
     const handleMapSelect = (location) => {
@@ -47,7 +44,7 @@ const ClientsPage = () => {
 
     const handleShowCreateModal = () => {
         setIsEditing(false);
-        setFormData({ name: '', address: '', contact_name: '', phone: '', lat: 14.6349, lng: -90.5068 });
+        setFormData({ name: '', email: '', address: '', contact_name: '', phone: '', lat: 14.6349, lng: -90.5068 });
         setCurrentClient(null);
         setShowModal(true);
     };
@@ -69,7 +66,7 @@ const ClientsPage = () => {
         } else {
             await api.post('/clients', formData);
         }
-        fetchClients(); // Recargar la lista de clientes
+        fetchClients();
         handleCloseModal();
         } catch (err) {
         setError('Error al guardar el cliente. ' + (err.response?.data?.message || err.message));
@@ -102,9 +99,9 @@ const ClientsPage = () => {
             <thead>
                 <tr>
                 <th>Nombre</th>
+                <th>Email</th>
                 <th>Contacto</th>
                 <th>Teléfono</th>
-                <th>Dirección</th>
                 <th>Acciones</th>
                 </tr>
             </thead>
@@ -112,9 +109,9 @@ const ClientsPage = () => {
                 {clients.map(client => (
                 <tr key={client.id}>
                     <td>{client.name}</td>
+                    <td>{client.email}</td>
                     <td>{client.contact_name}</td>
                     <td>{client.phone}</td>
-                    <td>{client.address}</td>
                     <td>
                     <Button variant="info" size="sm" onClick={() => handleShowEditModal(client)}>Editar</Button>{' '}
                     <Button variant="danger" size="sm" onClick={() => handleDelete(client.id)}>Eliminar</Button>
@@ -125,7 +122,6 @@ const ClientsPage = () => {
             </Table>
         )}
 
-        {/* Modal para Crear/Editar */}
         <Modal show={showModal} onHide={handleCloseModal} size="lg">
             <Modal.Header closeButton>
             <Modal.Title>{isEditing ? 'Editar Cliente' : 'Crear Nuevo Cliente'}</Modal.Title>
@@ -136,6 +132,13 @@ const ClientsPage = () => {
                 <Form.Label>Nombre del Cliente</Form.Label>
                 <Form.Control type="text" name="name" value={formData.name} onChange={handleInputChange} required />
                 </Form.Group>
+                
+                {/* 2. Añadimos el campo de Email al formulario */}
+                <Form.Group className="mb-3">
+                <Form.Label>Correo Electrónico del Cliente</Form.Label>
+                <Form.Control type="email" name="email" value={formData.email || ''} onChange={handleInputChange} required placeholder="ejemplo@correo.com" />
+                </Form.Group>
+
                 <Form.Group className="mb-3">
                 <Form.Label>Nombre del Contacto</Form.Label>
                 <Form.Control type="text" name="contact_name" value={formData.contact_name} onChange={handleInputChange} />
@@ -152,17 +155,11 @@ const ClientsPage = () => {
                 <p>Selecciona la ubicación en el mapa:</p>
                 <MapPicker 
                 onLocationSelect={handleMapSelect} 
-                initialPosition={isEditing ? { lat: parseFloat(formData.lat), lng: parseFloat(formData.lng) } : null}
+                initialPosition={isEditing && formData.lat ? { lat: parseFloat(formData.lat), lng: parseFloat(formData.lng) } : null}
                 />
                 <div className="d-flex mt-2">
-                <Form.Group className="flex-fill me-2">
-                    <Form.Label>Latitud</Form.Label>
-                    <Form.Control type="number" name="lat" value={formData.lat} readOnly />
-                </Form.Group>
-                <Form.Group className="flex-fill">
-                    <Form.Label>Longitud</Form.Label>
-                    <Form.Control type="number" name="lng" value={formData.lng} readOnly />
-                </Form.Group>
+                <Form.Group className="flex-fill me-2"><Form.Label>Latitud</Form.Label><Form.Control type="number" name="lat" value={formData.lat} readOnly /></Form.Group>
+                <Form.Group className="flex-fill"><Form.Label>Longitud</Form.Label><Form.Control type="number" name="lng" value={formData.lng} readOnly /></Form.Group>
                 </div>
             </Modal.Body>
             <Modal.Footer>
