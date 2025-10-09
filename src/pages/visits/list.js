@@ -92,7 +92,7 @@ const VisitsListPage = () => {
         e.preventDefault();
         if (!selectedVisit) return;
         let emailSent = false;
-
+        //console.log("Datos de la visita ANTES de enviar correo:", selectedVisit);
         try {
             // Paso 1: Guardar en nuestra base de datos (esto siempre se hace)
             const location = await handleGetLocation();
