@@ -2,6 +2,7 @@
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@/styles/globals.css';
+import '@/styles/custom.css';
 import { AuthProvider } from '@/context/AuthContext';
 import Layout from '@/components/Layout';
 import { useRouter } from 'next/router';

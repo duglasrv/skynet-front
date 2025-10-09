@@ -1,0 +1,162 @@
+/* Ruta: /frontend/src/styles/custom.css */
+
+/* --- 1. Definición de nuestra Paleta de Colores y Estilos (Design System) --- */
+:root {
+  --primary-color: #7b61ff; /* El morado principal */
+  --primary-hover-color: #6a50e0;
+  --background-color: #f7f7f9; /* Un gris muy claro para el fondo */
+  --card-bg-color: #ffffff;
+  --text-color: #4a4a4a;
+  --text-light-color: #8c8c8c;
+  --border-radius-lg: 1rem; /* 16px */
+  --border-radius-md: 0.5rem; /* 8px */
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  --font-family: 'Poppins', sans-serif;
+}
+
+/* --- 2. Sobrescrituras Globales --- */
+body {
+  background-color: var(--background-color);
+  font-family: var(--font-family);
+  color: var(--text-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600; /* Un poco más de peso en los títulos */
+}
+
+/* --- 3. Sobrescritura de Componentes de Bootstrap --- */
+
+/* Contenedores Principales (Cards y Modals) */
+.card, .modal-content {
+  border: none !important; /* Quitamos los bordes feos de Bootstrap */
+  border-radius: var(--border-radius-lg) !important;
+  box-shadow: var(--card-shadow) !important;
+  background-color: var(--card-bg-color);
+  transition: all 0.2s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.card-header {
+  background-color: transparent !important;
+  border-bottom: 1px solid #f0f0f0 !important;
+  font-weight: 500;
+  padding: 1.25rem 1.5rem;
+}
+
+.modal-header {
+  border-bottom: 1px solid #f0f0f0 !important;
+}
+
+/* Botones */
+.btn {
+  border-radius: var(--border-radius-md) !important;
+  padding: 0.6rem 1.2rem;
+  font-weight: 500;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-primary {
+  background-color: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+.btn-primary:hover, .btn-primary:active {
+  background-color: var(--primary-hover-color) !important;
+  border-color: var(--primary-hover-color) !important;
+  transform: translateY(-2px);
+}
+
+/* Quitar el resplandor azul feo al hacer clic */
+.btn:focus, .form-control:focus, .form-select:focus {
+  box-shadow: 0 0 0 0.25rem rgba(123, 97, 255, 0.25) !important;
+}
+
+/* Formularios */
+.form-control, .form-select {
+  border-radius: var(--border-radius-md) !important;
+  border: 1px solid #e0e0e0;
+  padding: 0.6rem 1rem;
+}
+
+.form-control:focus, .form-select:focus {
+  border-color: var(--primary-color) !important;
+}
+
+/* Tablas */
+.table {
+  border-color: #e9ecef;
+}
+
+.table > :not(caption) > * > * {
+    background-color: transparent; /* Fondo transparente para las filas */
+}
+
+.table thead th {
+  font-weight: 600;
+  color: var(--text-light-color);
+  border-bottom-width: 1px;
+}
+
+/* Insignias (Badges) */
+.badge {
+  padding: 0.4em 0.8em;
+  border-radius: 50rem; /* Para que sean píldoras perfectas */
+  font-weight: 500;
+}
+
+/* Barra de Navegación */
+.navbar.bg-dark {
+    /* Mantenemos la barra oscura para contraste, pero puedes cambiarla si quieres */
+    box-shadow: var(--card-shadow);
+}
+
+/* Estilos específicos para la página de Login */
+.login-container {
+    background-color: var(--background-color);
+}
+.form-signin {
+    background-color: var(--card-bg-color);
+    box-shadow: var(--card-shadow);
+    border-radius: var(--border-radius-lg);
+    padding: 2.5rem;
+}
+
+
+/* Barra de Navegación */
+.navbar.bg-light {
+    background-color: var(--card-bg-color) !important; /* Usamos nuestro color blanco de tarjeta */
+    box-shadow: var(--card-shadow) !important; /* Le aplicamos nuestra sombra personalizada */
+    border-bottom: none !important; /* Quitamos cualquier borde residual */
+}
+
+/* Ajustamos el color del texto para que sea legible en el fondo claro */
+.navbar-light .navbar-brand,
+.navbar-light .nav-link,
+.navbar-light .navbar-nav .nav-link {
+    color: var(--text-color) !important;
+    font-weight: 500;
+}
+
+.navbar-light .nav-link:hover {
+    color: var(--primary-color) !important;
+}
+
+.navbar-light .navbar-brand {
+    font-weight: 700;
+}
+
+/* Estilos específicos para la página de Login (se mantienen igual) */
+.login-container {
+    background-color: var(--background-color);
+}
+.form-signin {
+    background-color: var(--card-bg-color);
+    box-shadow: var(--card-shadow);
+    border-radius: var(--border-radius-lg);
+    padding: 2.5rem;
+}
