@@ -12,15 +12,13 @@ import Cookies from 'js-cookie';
 // usaremos `api.get()`, `api.post()`. La ventaja es que podemos preconfigurar esta instancia
 // con valores por defecto que se aplicarán a TODAS las peticiones que se hagan con ella.
 const api = axios.create({
-    // ¡IMPORTANTE! Esta es la URL base de tu backend.
-    // Todas las peticiones relativas (ej: `/users`, `/login`) se concatenarán a esta URL.
-    // Por ejemplo, `api.get('/users')` se convertirá en una petición a `http://localhost:4000/api/users`.
-    // Asegúrate de que coincida con el puerto donde estás corriendo tu servidor de Node.js.
-    baseURL: 'http://localhost:4000/api', 
+    // ¡CAMBIO CLAVE!
+    // Lee la URL de la API desde una variable de entorno.
+    // El prefijo NEXT_PUBLIC_ es OBLIGATORIO en Next.js para que la variable
+    // esté disponible en el navegador.
+    baseURL: process.env.NEXT_PUBLIC_API_URL, 
     
-    // Establece las cabeceras (headers) por defecto para todas las peticiones.
     headers: {
-        // Indica que el cuerpo de las peticiones (en POST o PUT) estará en formato JSON.
         'Content-Type': 'application/json',
     },
 });
